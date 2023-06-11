@@ -4,20 +4,20 @@ import React, { Component } from 'react'
     constructor(props){
         super(props)
         this.state ={
-            firstname:"",
-            lastname:"",
+            firstName:"",
+            lastName:"",
             email:"",
             password:""
         }
     }
     firstnameHandler = event =>{
         this.setState({
-            firstname:event.target.value
+            firstName:event.target.value
         })
     }
-    lasttnameHandler = event =>{
+    lastnameHandler = event =>{
         this.setState({
-            lasttname:event.target.value
+            lastName:event.target.value
         })
     }
     emailHandler = event =>{
@@ -33,13 +33,34 @@ import React, { Component } from 'react'
 
     formSubmitHandler = event =>{
     event.preventDefault()
-    console.log(this.state.firstname,
-        this.state.lastname,
-        this.state.email,
-        this.state.password);
+    console.log(this.state.firstName,
+        this.state.lastName,
+            this.state.email,
+        this.state.password
+        );
+        fetch('http://localhost:3500/api/v1/signup',{
+        method:'POST',
+        crossDomain:true,
+        header:{
+ 'Content-type':'application/json',
+ 'Access-Control-Allow-Origin':'*'
+        },
+        body:JSON.stringify({
+            firstName:this.state.firstName,
+            lastName:this.state.lastName,
+            email:this.state.email,
+            password:this.state.password
+        })
+    })
+    .then((response)=>response.json())
+    .then((data)=>{
+     console.log(data)
+    })
+
+
 }
   render() {
-    const {firstname,lastname,email,password} = this.state
+    const {firstName,lastName,email,password} = this.state
     return (
      <form onSubmit={this.formSubmitHandler}>
         <h3>Sign Up</h3>
@@ -49,7 +70,7 @@ import React, { Component } from 'react'
             type='text'
             className='form-control'
             placeholder='Enter Your First Name'
-            value={firstname}
+            value={firstName}
             onChange={this.firstnameHandler}
             required/> 
         </div>
@@ -59,9 +80,8 @@ import React, { Component } from 'react'
             type='text'
             className='form-control'
             placeholder='Enter Your Last Name'
-            value={lastname}
-            onChange={this.lastnameHandler}
-            required/> 
+            value={lastName}
+            onChange={this.lastnameHandler} /> 
         </div>
         <div className='mb-3'>
             <label>Email</label>
@@ -69,7 +89,7 @@ import React, { Component } from 'react'
             type='email'
             className='form-control'
             placeholder='Enter Your Email'
-            value={email}
+                        value={email}
             onChange={this.emailHandler}
             required/> 
         </div>
@@ -79,7 +99,8 @@ import React, { Component } from 'react'
             type='password'
             className='form-control'
             placeholder='Enter The Password'
-            value={password}
+            value=
+            {password}
             onChange={this.passwordHandler}
             required/> 
         </div>
