@@ -10,12 +10,12 @@ import React, { Component } from 'react'
             password:""
         }
     }
-    firstnameHandler = event =>{
+    firstNameHandler = event =>{
         this.setState({
             firstName:event.target.value
         })
     }
-    lastnameHandler = event =>{
+    lastNameHandler = event =>{
         this.setState({
             lastName:event.target.value
         })
@@ -31,7 +31,7 @@ import React, { Component } from 'react'
         })
     }
 
-    formSubmitHandler = event =>{
+    formSubmitHandler = async(event) =>{
     event.preventDefault()
     console.log(this.state.firstName,
         this.state.lastName,
@@ -41,7 +41,7 @@ import React, { Component } from 'react'
         fetch('http://localhost:3500/api/v1/signup',{
         method:'POST',
         crossDomain:true,
-        header:{
+        headers:{
  'Content-type':'application/json',
  'Access-Control-Allow-Origin':'*'
         },
@@ -71,7 +71,7 @@ import React, { Component } from 'react'
             className='form-control'
             placeholder='Enter Your First Name'
             value={firstName}
-            onChange={this.firstnameHandler}
+            onChange={this.firstNameHandler}
             required/> 
         </div>
         <div className='mb-3'>
@@ -81,7 +81,7 @@ import React, { Component } from 'react'
             className='form-control'
             placeholder='Enter Your Last Name'
             value={lastName}
-            onChange={this.lastnameHandler} /> 
+            onChange={this.lastNameHandler} /> 
         </div>
         <div className='mb-3'>
             <label>Email</label>
@@ -99,8 +99,7 @@ import React, { Component } from 'react'
             type='password'
             className='form-control'
             placeholder='Enter The Password'
-            value=
-            {password}
+            value={password}
             onChange={this.passwordHandler}
             required/> 
         </div>
